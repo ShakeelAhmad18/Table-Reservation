@@ -23,9 +23,8 @@ const BarGrid = ({barArea,availableTables,selectReservationData}) => {
 
   return (
     <div className="bg-white p-4 space-y-6">
-        <div className="text-black text-lg font-semibold mb-2 text-center">Bar</div>
         <div className='grid grid-cols-4 lg:ml-64 gap-4 lg:mr-52'>
-        {barArea?.map((image, index) => (
+        {barArea?.slice(0,4)?.map((image, index) => (
         <div
         key={barArea._id}
         className={`relative cursor-pointer rounded-lg overflow-hidden border-2 ${

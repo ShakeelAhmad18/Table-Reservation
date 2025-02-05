@@ -88,73 +88,88 @@ const Table = () => {
 
   return (
     <div>
-      <Navbar/>
-    <div>
-      {/* Sticky Reservation Section */}
-      <div className="bg-white py-4">
-        <div className="container mx-auto px-4 lg:px-16">
-          <div className="flex flex-wrap gap-8 items-center justify-center">
-          <div className="w-full lg:w-2/3 bg-gray-300 lg:mt-[55px] mt-44 p-4 rounded-lg shadow-lg fixed top-[calc(var(--navbar-height)+15px)] z-50">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Number of People */}
-                <div className="flex items-center gap-2">
-                  <FaUser className="text-red-500 text-lg" />
-                  <select
-                    className="w-full border text-black border-red-300 bg-gray-100  rounded-lg focus:ring-red-500 focus:border-red-500 p-2"
-                    value={people}
-                    onChange={(e) => setPeople(e.target.value)}
-                  >
-                    {[1, 2, 3, 4, 5, 6].map((num) => (
-                      <option key={num} value={num}>
-                        {num} People
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {/* Date Picker */}
-                <div className="flex items-center gap-2">
-                  <FaCalendarAlt className="text-red-500 text-lg" />
-                  <DatePicker
-                    selected={date}
-                    onChange={(date) => setDate(date)}
-                    className="w-full border text-black bg-gray-100 border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 p-2"
-                    dateFormat="yyyy-MM-dd"
-                    minDate={new Date()}
-                    maxDate={new Date(new Date().setMonth(new Date().getMonth() + 1))}
-                  />
-                </div>
-                {/* Time Selector */}
-                <div className="flex items-center gap-2">
-                  <FaClock className="text-red-500 text-lg" />
-                  <select
-                    className="w-full border text-black bg-gray-100 border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 p-2"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                  >
-                    {availableSlots.length > 0 ? (
-                      availableSlots.map((slot) => (
-                        <option key={slot._id} value={slot.time}>
-                          {slot.time}
+      <Navbar />
+      <div>
+        {/* Sticky Reservation Section */}
+        <div className="bg-white py-4">
+          <div className="container mx-auto px-4 lg:px-16">
+            <div className="flex flex-wrap gap-8 items-center justify-center">
+              <div className="w-full lg:w-2/3 bg-gray-300 lg:mt-[55px] mt-44 p-4 rounded-lg shadow-lg fixed top-[calc(var(--navbar-height)+15px)] z-50">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Number of People */}
+                  <div className="flex items-center gap-2">
+                    <FaUser className="text-red-500 text-lg" />
+                    <select
+                      className="w-full border text-black border-red-300 bg-gray-100  rounded-lg focus:ring-red-500 focus:border-red-500 p-2"
+                      value={people}
+                      onChange={(e) => setPeople(e.target.value)}
+                    >
+                      {[1, 2, 3, 4, 5, 6].map((num) => (
+                        <option key={num} value={num}>
+                          {num} People
                         </option>
-                      ))
-                    ) : (
-                      <option>No Slots Available</option>
-                    )}
-                  </select>
+                      ))}
+                    </select>
+                  </div>
+                  {/* Date Picker */}
+                  <div className="flex items-center gap-2">
+                    <FaCalendarAlt className="text-red-500 text-lg" />
+                    <DatePicker
+                      selected={date}
+                      onChange={(date) => setDate(date)}
+                      className="w-full border text-black bg-gray-100 border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 p-2"
+                      dateFormat="yyyy-MM-dd"
+                      minDate={new Date()}
+                      maxDate={
+                        new Date(new Date().setMonth(new Date().getMonth() + 1))
+                      }
+                    />
+                  </div>
+                  {/* Time Selector */}
+                  <div className="flex items-center gap-2">
+                    <FaClock className="text-red-500 text-lg" />
+                    <select
+                      className="w-full border text-black bg-gray-100 border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500 p-2"
+                      value={time}
+                      onChange={(e) => setTime(e.target.value)}
+                    >
+                      {availableSlots.length > 0 ? (
+                        availableSlots.map((slot) => (
+                          <option key={slot._id} value={slot.time}>
+                            {slot.time}
+                          </option>
+                        ))
+                      ) : (
+                        <option>No Slots Available</option>
+                      )}
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {/* Main Content */}
+        <div className="lg:mt-32 mt-44">
+          <DJBoothGrid
+            djBooth={djBooth}
+            availableTables={availableTables}
+            selectReservationData={selectReservationData}
+          />
+          <Bar360Grid
+            mainArea={mainArea}
+            barArea={barArea}
+            availableTables={availableTables}
+            selectReservationData={selectReservationData}
+          />
+          <BarGrid
+            barArea={barArea}
+            availableTables={availableTables}
+            selectReservationData={selectReservationData}
+          />
+        </div>
       </div>
-      {/* Main Content */}
-      <div className='lg:mt-32 mt-44'>
-      <DJBoothGrid djBooth={djBooth} availableTables={availableTables} selectReservationData={selectReservationData}/>
-      <Bar360Grid mainArea={mainArea} availableTables={availableTables} selectReservationData={selectReservationData}/>
-      <BarGrid barArea={barArea} availableTables={availableTables} selectReservationData={selectReservationData}/>
-      </div>
-    </div>
-    <Footer/>
+      <Footer />
     </div>
   );
 };
